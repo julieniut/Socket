@@ -27,7 +27,7 @@ while message !="bye":
     print(message)
 
 
-
+    #traitement des Messages
     if message == "CPU":
         print(f"Processor: {platform.processor()}")
         conn.send(platform.processor().encode() )
@@ -38,8 +38,8 @@ while message !="bye":
         conn.send(test.encode())
 
     if message == "IP":
-        print(address)
-        test=str(address)
+        print(server_socket.getsockname()[0])
+        test=str(server_socket.getsockname()[0])
         conn.send( test.encode())
 
     if message == "RAM":

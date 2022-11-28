@@ -13,3 +13,5 @@ print(f"Processor: {System.processor}")
 print(f"Memory :{psutil.virtual_memory()}")
 print("cpu pourcent",psutil.cpu_percent(4))
 
+import os
+os.system(cmd)
