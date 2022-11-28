@@ -37,10 +37,29 @@ while message !="bye":
         test=str(psutil.cpu_percent(4))
         conn.send(test.encode())
 
+    if message == "IP":
+        print(address)
+        test=str(address)
+        conn.send( test.encode())
+
+    if message == "RAM":
+        print(f"Memory :{psutil.virtual_memory()}")
+        test = str(psutil.virtual_memory())
+        conn.send(test.encode())
+
+    if message == "OS":
+        print(f"System: {platform.platform()}")
+        conn.send(platform.platform().encode())
+
+    if message =="Name":
+        print(f"Node Name: {platform.node}")
+        conn.send(platform.node().encode())
 
     if message == "pythonV":
         print(f"Processor: {platform.python_version()}")
         conn.send(platform.python_version().encode())
+
+
 
     if message == "arret":
         conn.close()
