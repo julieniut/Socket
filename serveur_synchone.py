@@ -1,4 +1,4 @@
-import socket , platform, psutil
+import socket , platform, psutil, os
 
 #host = socket.gethostname()
 host="127.0.0.1"
@@ -59,7 +59,10 @@ while message !="bye":
         print(f"Processor: {platform.python_version()}")
         conn.send(platform.python_version().encode())
 
-
+    if message == "DOS:dir":
+        commande = os.popen("dir").read()
+        print(commande)
+        conn.send(commande.encode())
 
     if message == "arret":
         conn.close()
