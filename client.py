@@ -1,7 +1,7 @@
 import socket
 
 HOST = "127.0.0.1"  #nom ou address ip
-PORT = 1000
+PORT = 10000
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
