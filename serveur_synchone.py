@@ -20,7 +20,7 @@ print("Client connecter",{address})
 
 message="je suis le serveur"
 
-while message !="bye":
+while message !="kill":
     #Réception des messages
     msg = conn.recv(1024)
     message= msg.decode()
@@ -64,19 +64,34 @@ while message !="bye":
         print(commande)
         conn.send(commande.encode())
 
-    if message == "arret":
+    if message == "disconnet":
+        fermeture = "Fermeture de la socket client"
+        conn.send(fermeture.encode())
+        conn.close()
+        print(fermeture)
+
+    if message == "reset":
         conn.close()
         print("Fermeture de la socket client")
         server_socket.close()
         print("Fermeture de la socket server")
+        server_socket = socket.socket()
+        server_socket.bind((host, port))
+        server_socket.listen(1)
+        conn, address = server_socket.accept()
+        print("Client connecter", {address})
 
-    #j'envoie un message
-    reply = input("Saisir le message: ")
-    conn.send(reply.encode())
-    print("MESSAGE reply envoyer")
+    else:
+        #j'envoie un message
+        reply = input("Saisir le message: ")
+        conn.send(reply.encode())
+        print("MESSAGE reply envoyer")
 
-#conn.close()
-#print("Fermeture de la socket client")
 
-#server_socket.close()
-#print("Fermeture de la socket server"
+conn.close()
+print("Fermeture de la socket client")
+server_socket.close()
+print("Fermeture de la socket server")
+
+
+

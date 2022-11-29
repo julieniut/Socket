@@ -8,7 +8,7 @@ client_socket.connect((host, port))
 
 message="je suis le client"
 print("Serveur est connecté")
-while message !="bye":
+while message !="disconnet":
     message = input("saisir le message ")
     client_socket.send(message.encode())
     print("Message envoyé")
