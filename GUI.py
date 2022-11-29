@@ -25,8 +25,7 @@ class TextEditDemo(QWidget):
         self.btnPress2.clicked.connect(self.btnPress2_Clicked)
 
     def btnPress1_Clicked(self):
-        self.textEdit.append(f"Nouveau texte {self.i}")
-        self.i += 1
+        self.textEdit.append(input("Saisir le message "))
 #        self.textEdit.setPlainText("Hello PyQt5!\nfrom pythonpyqt.com")
 
     def btnPress2_Clicked(self):

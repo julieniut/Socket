@@ -34,12 +34,12 @@ while message !="kill":
 
     if message == "CPU%":
         print(f"cpu pourcent {psutil.cpu_percent()}")
-        test=str(psutil.cpu_percent(4))
+        test=str(f"cpu {psutil.cpu_percent(4)} %")
         conn.send(test.encode())
 
     if message == "IP":
         print(server_socket.getsockname()[0])
-        test=str(server_socket.getsockname()[0])
+        test=str(f"IP {server_socket.getsockname()[0]} ")
         conn.send( test.encode())
 
     if message == "RAM":
@@ -80,6 +80,21 @@ while message !="kill":
         server_socket.listen(1)
         conn, address = server_socket.accept()
         print("Client connecter", {address})
+
+    if message == "DOS: mkdir toto":
+        commande = os.system("mkdir toto")
+        reply= "dossier toto créer"
+        conn.send(reply.encode())
+
+    if message == "Ping":
+        commande = os.system("Ping 8.8.8.8")
+        conn.send(str(commande).encode())
+
+    if message == 'connection information':
+        hostname = socket.gethostname()
+        address = socket.gethostbyname(hostname)
+        message = str(f" \n Hostname : {hostname} \n IP: {address}")
+        conn.send(message.encode())
 
     else:
         #j'envoie un message

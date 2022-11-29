@@ -16,3 +16,5 @@ print(f"Memory :{psutil.virtual_memory()}")
 import os
 retour_commande = os.popen("mkdir toto").read()
 print(retour_commande)
+
+
