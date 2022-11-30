@@ -88,7 +88,19 @@ while message !="kill":
 
     if message == "Ping":
         commande = os.system("Ping 8.8.8.8")
-        conn.send(str(commande).encode())
+        if commande==0:
+         commande="Ping effectué sans erreur"
+         conn.send(commande.encode())
+        else:
+            commande = "Ping effectué avec erreur"
+            conn.send(commande.encode())
+
+    if message == "ping":
+        address= "1.1.1.1"
+        ping = os.popen(f"ping {address}"). read()
+        print(ping)
+        conn.send(ping.encode())
+
 
     if message == 'connection information':
         hostname = socket.gethostname()
@@ -98,7 +110,7 @@ while message !="kill":
 
     else:
         #j'envoie un message
-        reply = input("Saisir le message: ")
+        reply = "Vérifier la saisie de la commandes \n (Voir DOC) "
         conn.send(reply.encode())
         print("MESSAGE reply envoyer")
 
