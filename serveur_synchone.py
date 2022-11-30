@@ -26,6 +26,9 @@ while message !="kill":
     message= msg.decode()
     print(message)
 
+    message_split= message.split()[0]
+
+
 
     #traitement des Messages
     if message == "CPU":
@@ -81,9 +84,10 @@ while message !="kill":
         conn, address = server_socket.accept()
         print("Client connecter", {address})
 
-    if message == "DOS: mkdir toto":
-        commande = os.system("mkdir toto")
-        reply= "dossier toto créer"
+    if message_split == "mkdir":
+        message=message.split()[1]
+        commande = os.popen(f"mkdir {message}").read()
+        reply= f"dossier {message}  créer"
         conn.send(reply.encode())
 
     if message == "Ping":
@@ -95,9 +99,9 @@ while message !="kill":
             commande = "Ping effectué avec erreur"
             conn.send(commande.encode())
 
-    if message == "ping":
-        address= "1.1.1.1"
-        ping = os.popen(f"ping {address}"). read()
+    if message_split == "ping":
+        address=message.split()[1]
+        ping = os.popen(f"ping {address}").read()
         print(ping)
         conn.send(ping.encode())
 
@@ -108,6 +112,14 @@ while message !="kill":
         message = str(f" \n Hostname : {hostname} \n IP: {address}")
         conn.send(message.encode())
 
+    if message == 'get-process':
+        process = os.popen('wmic process get description, processid').read()
+        process = f'\n {process}'
+        conn.send(process.encode())
+
+    if message == 'help':
+        a= " \n CPU \n CPU% \n IP \n RAM \n OS \n Name \n connection information \n pythonV \n DOS:dir \n DOS: mkdir {nom du dossier} \n disconnet \n reset \n Ping \n ping {address IP} \n get-process"
+        conn.send(a.encode())
     else:
         #j'envoie un message
         reply = "Vérifier la saisie de la commandes \n (Voir DOC) "

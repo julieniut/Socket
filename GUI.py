@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import *
 import sys
 
 
@@ -7,17 +7,19 @@ class TextEditDemo(QWidget):
         super().__init__(parent)
 
         self.i = 0
-        self.setWindowTitle("QTextEdit")
-        self.resize(300, 270)
+        self.setWindowTitle("SAE 3.02 LOSSER Julien")
+        self.resize(500, 270)
 
         self.textEdit = QTextEdit()
         self.textEdit.setEnabled(False)
-        self.btnPress1 = QPushButton("Add message")
+        self.btnPress1 = QPushButton("Envoyer")
+        QLine =  QLineEdit()
         self.btnPress2 = QPushButton("Clear")
 
         layout = QVBoxLayout()
         layout.addWidget(self.textEdit)
         layout.addWidget(self.btnPress1)
+        layout.addWidget(QLine)
         layout.addWidget(self.btnPress2)
         self.setLayout(layout)
 
@@ -25,8 +27,7 @@ class TextEditDemo(QWidget):
         self.btnPress2.clicked.connect(self.btnPress2_Clicked)
 
     def btnPress1_Clicked(self):
-        self.textEdit.append(input("Saisir le message "))
-#        self.textEdit.setPlainText("Hello PyQt5!\nfrom pythonpyqt.com")
+        self.textEdit.setPlainText("D?DJVKJV")
 
     def btnPress2_Clicked(self):
         self.textEdit.setPlainText("")
