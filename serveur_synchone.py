@@ -1,13 +1,7 @@
 import socket , platform, psutil, os
 
-#host = socket.gethostname()
-host="127.0.0.1"
+host='localhost'
 port=10010
-#udpSvr = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#Ouvrir une socket en UDP
-#tcpSvr = socket.socket()
-#tcpSvr = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#Ouvrir une socket en TCP
 
 server_socket = socket.socket()
 server_socket.bind((host, port))
@@ -70,10 +64,12 @@ while message !="kill":
     if message == "disconnet":
         fermeture = "Fermeture de la socket client"
         conn.send(fermeture.encode())
-        conn.close()
+        #conn.close()
         print(fermeture)
 
     if message == "reset":
+        reply="le serveur redémarre"
+        conn.send(reply.encode())
         conn.close()
         print("Fermeture de la socket client")
         server_socket.close()
@@ -100,10 +96,14 @@ while message !="kill":
             conn.send(commande.encode())
 
     if message_split == "ping":
-        address=message.split()[1]
-        ping = os.popen(f"ping {address}").read()
+        ping = os.popen(message).read()
         print(ping)
         conn.send(ping.encode())
+
+    if message_split == "Powershell":
+        power = os.popen(message).read()
+        print(power)
+        conn.send(power.encode())
 
 
     if message == 'connection information':
@@ -118,7 +118,7 @@ while message !="kill":
         conn.send(process.encode())
 
     if message == 'help':
-        a= " \n CPU \n CPU% \n IP \n RAM \n OS \n Name \n connection information \n pythonV \n DOS:dir \n DOS: mkdir {nom du dossier} \n disconnet \n reset \n Ping \n ping {address IP} \n get-process"
+        a= " \n CPU \n CPU% \n IP \n RAM \n OS \n Name \n connection information \n pythonV \n DOS:dir \n mkdir {nom du dossier} \n disconnet \n reset \n Ping \n ping {address IP} \n Powershell {commande} \n get-process"
         conn.send(a.encode())
     else:
         #j'envoie un message

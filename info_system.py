@@ -14,7 +14,6 @@ print(f"Memory :{psutil.virtual_memory()}")
 #print("cpu pourcent",psutil.cpu_percent(4))
 
 import os
-retour_commande = os.popen("mkdir toto").read()
-print(retour_commande)
-
+#retour_commande = os.popen("mkdir toto").read()
+#print(retour_commande)
 

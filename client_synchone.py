@@ -1,6 +1,14 @@
 import socket
 
-host="127.0.0.1"
+fichier = "data.txt"
+lignes = []
+with open(fichier, "r", encoding="utf-8") as f:
+    for ligne in f:
+        ligne = ligne.rstrip()  # supprime la fin de ligne
+        lignes.append(ligne)  # ajoute la ligne à la liste
+        #print(ligne)
+
+host=ligne
 port=10010
 
 client_socket = socket.socket()

@@ -1,38 +1,28 @@
 import sys
-from PyQt5.QtWidgets import (QWidget, QLabel,
-                             QLineEdit, QApplication)
+from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit
 
 
-class Example(QWidget):
+class MyWindow(QWidget):
 
-    def __init__(self):
+    def __init__(self, win):
         super().__init__()
+        self.win = win
 
-        self.initUI()
+    def build(self):
+        self.win.setWindowTitle("QLineEdit Exemple")
+        self.win.setGeometry(100, 100, 500, 300)
 
-    def initUI(self):
-        self.lbl = QLabel(self)
-        qle = QLineEdit(self)
-
-        qle.move(60, 100)
-        self.lbl.move(60, 40)
-
-        qle.textChanged[str].connect(self.onChanged)
-
-        self.setGeometry(300, 300, 350, 250)
-        self.setWindowTitle('QLineEdit')
-        self.show()
-
-    def onChanged(self, text):
-        self.lbl.setText(text)
-        self.lbl.adjustSize()
-
-
-def main():
-    app = QApplication(sys.argv)
-    ex = Example()
-    sys.exit(app.exec_())
+        # create a QLineEdit
+        self.qLine = QLineEdit(self.win)
+        self.qLine.setGeometry(50, 50, 250, 35)
 
 
 if __name__ == '__main__':
-    main()
+    app = QApplication(sys.argv)
+    root = QWidget()
+
+    mywin = MyWindow(root)
+    mywin.build()
+
+    root.show()
+    sys.exit(app.exec_())
