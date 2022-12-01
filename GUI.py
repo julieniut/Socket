@@ -27,7 +27,7 @@ class TextEditDemo(QWidget):
         self.btnPress2.clicked.connect(self.btnPress2_Clicked)
 
     def btnPress1_Clicked(self):
-        self.textEdit.setPlainText("D?DJVKJV")
+        self.textEdit.setPlainText("testtt")
 
     def btnPress2_Clicked(self):
         self.textEdit.setPlainText("")

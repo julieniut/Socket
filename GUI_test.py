@@ -1,28 +1,85 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit
+from tkinter import *
+import socket , platform, psutil, os
+
+root = Tk()
+root.title("SAE 3.02 LOSSER Julien")
+
+BG_GRAY = "#ABB2B9"
+BG_COLOR = "#17202A"
+TEXT_COLOR = "#EAECEE"
+
+FONT = "Helvetica 14"
+FONT_BOLD = "Helvetica 13 bold"
 
 
-class MyWindow(QWidget):
 
-    def __init__(self, win):
-        super().__init__()
-        self.win = win
+host='0.0.0.0'
+port=10000
 
-    def build(self):
-        self.win.setWindowTitle("QLineEdit Exemple")
-        self.win.setGeometry(100, 100, 500, 300)
+server_socket = socket.socket()
+server_socket.bind((host, port))
+server_socket.listen(1)
 
-        # create a QLineEdit
-        self.qLine = QLineEdit(self.win)
-        self.qLine.setGeometry(50, 50, 250, 35)
+print("en attente du client")
+conn, address = server_socket.accept()
+print("Client connecter",{address})
+message="je suis le serveur"
 
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    root = QWidget()
+# Send function
+def send():
+		send = "You -> " + e.get()
+		txt.insert(END, "\n" + send)
+		user = e.get().lower()
 
-    mywin = MyWindow(root)
-    mywin.build()
+		if (user == "ram"):
+			print(f"Memory :{psutil.virtual_memory()}")
+			test = str(psutil.virtual_memory())
+			txt.insert(END,"\n" test)
 
-    root.show()
-    sys.exit(app.exec_())
+		if (user == "ip"):
+			print(server_socket.getsockname()[0])
+			test = str(f"IP {server_socket.getsockname()[0]} ")
+			txt.insert(END, test )
+
+		elif (user == "cpu"):
+			txt.insert(END, "\n" + "Bot -> fine! and you")
+
+		elif (user == "fine" or user == "i am good" or user == "i am doing good"):
+			txt.insert(END, "\n" + "Bot -> Great! how can I help you.")
+
+		elif (user == "thanks" or user == "thank you" or user == "now its my time"):
+			txt.insert(END, "\n" + "Bot -> My pleasure !")
+
+		elif (user == "what do you sell" or user == "what kinds of items are there" or user == "have you something"):
+			txt.insert(END, "\n" + "Bot -> We have coffee and tea")
+
+		elif (user == "tell me a joke" or user == "tell me something funny" or user == "crack a funny line"):
+			txt.insert(
+				END, "\n" + "Bot -> What did the buffalo say when his son left for college? Bison.! ")
+
+		elif (user == "goodbye" or user == "see you later" or user == "see yaa"):
+			txt.insert(END, "\n" + "Bot -> Have a nice day!")
+
+		else:
+			txt.insert(END, "\n" + "Bot -> Sorry! I didn't understand that")
+
+		e.delete(0, END)
+
+
+lable1 = Label(root, bg=BG_COLOR, fg=TEXT_COLOR, text="Welcome", font=FONT_BOLD, pady=10, width=20, height=1).grid(
+	row=0)
+
+txt = Text(root, bg=BG_COLOR, fg=TEXT_COLOR, font=FONT, width=60)
+txt.grid(row=1, column=0, columnspan=2)
+
+scrollbar = Scrollbar(txt)
+scrollbar.place(relheight=1, relx=0.974)
+
+e = Entry(root, bg="#2C3E50", fg=TEXT_COLOR, font=FONT, width=55)
+e.grid(row=2, column=0)
+
+send = Button(root, text="Send", font=FONT_BOLD, bg=BG_GRAY,
+			command=send).grid(row=2, column=1)
+
+root.mainloop()

@@ -1,7 +1,7 @@
 import socket , platform, psutil, os
 
-host='localhost'
-port=10010
+host='0.0.0.0'
+port=10000
 
 server_socket = socket.socket()
 server_socket.bind((host, port))
@@ -21,6 +21,10 @@ while message !="kill":
     print(message)
 
     message_split= message.split()[0]
+    try:
+       message_split1 = message.split(":")[1]
+    except:
+        pass
 
 
 
@@ -56,10 +60,6 @@ while message !="kill":
         print(f"Processor: {platform.python_version()}")
         conn.send(platform.python_version().encode())
 
-    if message == "DOS:dir":
-        commande = os.popen("dir").read()
-        print(commande)
-        conn.send(commande.encode())
 
     if message == "disconnet":
         fermeture = "Fermeture de la socket client"
@@ -104,6 +104,14 @@ while message !="kill":
         power = os.popen(message).read()
         print(power)
         conn.send(power.encode())
+
+    try:
+        if message == f"DOS:{message_split1}":
+          DOS = os.popen(message_split1).read()
+          print(DOS)
+          conn.send(DOS.encode())
+    except:
+        pass
 
 
     if message == 'connection information':

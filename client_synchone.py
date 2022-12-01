@@ -9,7 +9,7 @@ with open(fichier, "r", encoding="utf-8") as f:
         #print(ligne)
 
 host=ligne
-port=10010
+port=10000
 
 client_socket = socket.socket()
 client_socket.connect((host, port))
