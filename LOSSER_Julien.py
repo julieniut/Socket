@@ -2,6 +2,7 @@ import socket
 from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QVBoxLayout, QPushButton, QLabel
 import sys
 
+#https://github.com/julieniut/Socket
 
 class TextEditDemo(QWidget):
     def __init__(self, parent=None):
@@ -53,15 +54,16 @@ class TextEditDemo(QWidget):
 
     def Reset(self):
         self.textEdit.setPlainText("")
+        self.i = 0
         message = "Reset"
-        client_socket.send(message.encode())
+       # client_socket.send(message.encode())
 
     def STOP(self):
         #if arret_thread == True:
          self.textEdit.append(f"STOP")
          #threading.Thread.join()
          message = "STOP"
-         client_socket.send(message.encode())
+        # client_socket.send(message.encode())
 
 
 
@@ -74,7 +76,7 @@ class TextEditDemo(QWidget):
         client_socket.connect((host, port))
         print("Serveur est connecté")
         message = "je suis le client"
-        client_socket.send(message.encode())
+        #client_socket.send(message.encode())
         self.textEdit.append(f"CONNECT")
 
     def QUITTER(self):
